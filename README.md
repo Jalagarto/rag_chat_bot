@@ -44,6 +44,7 @@ cp .env.example .env
 
 5. Ejecutar la aplicación
 ```bash
+cd app
 poetry run python main.py
 ```
 
