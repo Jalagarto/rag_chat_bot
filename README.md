@@ -86,3 +86,10 @@ El sistema se compone de los siguientes módulos:
 3. Code Executor: Detecta, genera y ejecuta código Python de manera segura
 4. Query Engine: Coordina el procesamiento de consultas y generación de respuestas
 5. ChatbotApp: Integra todos los componentes y proporciona la interfaz de usuario
+
+## TODOes
+* Añadir un docker-compose si se considera necesario
+* CI/CD pipeline
+* Evaluación automática
+* Tests
+
