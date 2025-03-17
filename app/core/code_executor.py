@@ -17,7 +17,7 @@ class CodeExecutor:
     """
     def __init__(self):
         """Inicializa el ejecutor de código."""
-        # Módulos permitidos para importar automáticamente
+        # Módulos permitidos
         self.allowed_imports = {
             "math": "import math",
             "random": "import random",
@@ -49,7 +49,6 @@ class CodeExecutor:
         
         query_lower = query.lower()
         
-        # Verificar palabras clave
         keyword_match = any(keyword in query_lower for keyword in code_keywords)
         
         # Verificar patrones numéricos o matemáticos

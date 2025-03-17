@@ -91,9 +91,9 @@ class DocumentProcessor:
                 splits = text_splitter.split_documents(documents)
                 stats["chunks"] = len(splits)
                 
-                # Inicializar o actualizar base de datos vectorial
+                # Inicializar o actualizar vectorial BD
                 if not self.vector_db:
-                    # Crear nueva base de datos
+                    # Crear nueva db
                     if settings.enable_vector_db_persistence:
                         self.vector_db = Chroma.from_documents(
                             documents=splits,
@@ -106,7 +106,7 @@ class DocumentProcessor:
                             embedding=self.embedding_model
                         )
                 else:
-                    # Actualizar base de datos existente
+                    # Actualizar BD existente
                     self.vector_db.add_documents(documents=splits)
                     if settings.enable_vector_db_persistence:
                         pass

@@ -50,21 +50,20 @@ poetry run python main.py
 
 ### Despliegue con Docker
 
-1. Construir y ejecutar con Docker Compose
+1. generar la imagen docker
 
 ```bash
-docker-compose up -d
+docker build -t rag-chat-bot .
 ```
 
-2. Para detener la aplicación
+2. ejecutar el contenedor
 
 ```bash
-docker-compose down
+docker run -d -p 7860:7860 rag-chat-bot
 ```
 
 
 ## Uso
-
 1. Accede a la interfaz web en http://localhost:7860
 2. Carga documentos PDF usando el panel lateral
 3. Haz preguntas sobre el contenido de los documentos

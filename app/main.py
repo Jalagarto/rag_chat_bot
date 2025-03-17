@@ -11,7 +11,7 @@ from core.document_processor import DocumentProcessor
 from core.memory_manager import MemoryManager
 from core.query_engine import QueryEngine
 from utils.logging_config import logger
-from app_rag_chat_bot.core.interfaz import create_interface
+from core.interfaz import create_interface
 
 
 class ChatbotApp:
@@ -21,15 +21,12 @@ class ChatbotApp:
     def __init__(self):
         """Inicializa la aplicación del chatbot."""
         logger.info("Inicializando aplicación del chatbot")
-        # Crear directorios necesarios
         os.makedirs("./data", exist_ok=True)
         
-        # Inicializar componentes
         self.document_processor = DocumentProcessor()
         self.memory_manager = MemoryManager()
         self.query_engine = QueryEngine(self.document_processor, self.memory_manager)
         
-        # Crear interfaz de Gradio
         self.interface = create_interface(self)
 
     def _process_files(self, files: List) -> str:
@@ -83,11 +80,9 @@ class ChatbotApp:
             return "", history
         
         try:
-            # Procesar la consulta
             response = self.query_engine.process_query(query)
             
-            # Actualizar historial de Gradio
-            history.append([query, response])
+            history.append([query, response])  # Actualizar historial de Gradio
             
             return "", history
         
@@ -120,21 +115,17 @@ class ChatbotApp:
         if not history:
             return []
         
-        # Obtener la última consulta
-        last_query = history[-1][0]
+        last_query = history[-1][0]  # Obtener la última consulta
         
-        # Eliminar la última respuesta del historial
-        history.pop()
+        history.pop() # Eliminar la última respuesta del historial
         
         # Actualizar la memoria (eliminar la última interacción)
         if len(self.memory_manager.conversation_history) >= 2:
             self.memory_manager.conversation_history = self.memory_manager.conversation_history[:-2]
         
-        # Regenerar respuesta
         response = self.query_engine.process_query(last_query)
         
-        # Actualizar historial
-        history.append([last_query, response])
+        history.append([last_query, response])  # Actualizar historial de Gradio
         
         return history
 
@@ -161,7 +152,6 @@ if __name__=="__main__":
         # Verificar configuración
         if not settings.openai_api_key:
             logger.error("API key de OpenAI no configurada. Configúrala en .env o como variable de entorno.")
-            print("Error: API key de OpenAI no configurada. Configúrala en .env o como variable de entorno.")
             sys.exit(1)        
         # Crear e iniciar la aplicación
         app = ChatbotApp()
@@ -169,5 +159,4 @@ if __name__=="__main__":
 
     except Exception as e:
         logger.critical(f"Error fatal al iniciar la aplicación: {str(e)}")
-        print(f"Error fatal: {str(e)}")
         sys.exit(1)        
